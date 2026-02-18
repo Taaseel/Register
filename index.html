@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>سجل اهتمامك في منتج تأصيل - بيلد وايز</title>
+    <style>
+        :root { 
+            --gold: #c2996f; 
+            --dark: #000000; 
+            --bg: #fdfaf5; 
+            --red: #e74c3c; 
+            --white: #ffffff;
+            --shadow: 0 8px 30px rgba(0,0,0,0.08);
+            --success: #27ae60;
+        }
+
+        body { 
+            margin: 0; 
+            font-family: 'Segoe UI', Roboto, sans-serif; 
+            background-color: var(--bg); 
+            color: #333; 
+            text-align: right;
+            direction: rtl;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .hero { 
+            background: var(--white);
+            color: var(--dark); 
+            padding: 60px 20px; 
+            text-align: center;
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .logo-svg { width: 150px; margin-bottom: 10px; }
+
+        .survey-container { 
+            max-width: 500px; 
+            margin: -35px auto 50px; 
+            padding: 0 20px; 
+        }
+
+        .card { 
+            background: var(--white); 
+            border-radius: 24px; 
+            padding: 25px; 
+            margin-bottom: 25px; 
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        h3 { margin-top: 0; color: var(--dark); font-size: 1.1rem; border-bottom: 2px solid var(--bg); padding-bottom: 10px; margin-bottom: 20px; }
+
+        .field { margin-bottom: 20px; text-align: right; }
+        
+        label { 
+            display: block; 
+            font-weight: 600; 
+            margin-bottom: 8px; 
+            font-size: 0.85rem; 
+            color: #444; 
+        }
+        
+        .required-star { color: var(--red); margin-right: 2px; }
+
+        input, select { 
+            width: 100%; padding: 14px 16px; border: 1.5px solid #eee; 
+            border-radius: 14px; box-sizing: border-box; background: #fcfcfc; 
+            font-size: 1rem; text-align: right; transition: 0.3s;
+        }
+
+        input:focus, select:focus { border-color: var(--gold); outline: none; background: #fff; box-shadow: 0 0 0 4px rgba(194, 153, 111, 0.1); }
+
+        /* زر الإرسال باللون الذهبي */
+        .submit-btn { 
+            width: 100%; background: var(--gold); color: var(--white); 
+            padding: 20px; border: none; border-radius: 18px; 
+            font-size: 1.15rem; font-weight: bold; cursor: pointer;
+            box-shadow: 0 10px 20px rgba(194, 153, 111, 0.2); transition: 0.3s;
+        }
+        
+        .submit-btn:hover { opacity: 0.9; transform: translateY(-2px); }
+
+        #success-screen { display: none; text-align: center; }
+        .success-icon { width: 80px; height: 80px; background: var(--success); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 40px; margin: 0 auto 25px; }
+
+        #loading-overlay { 
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(255,255,255,0.95); z-index: 9999; flex-direction: column; 
+            justify-content: center; align-items: center; backdrop-filter: blur(5px);
+        }
+
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid var(--gold); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin-bottom: 15px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <div id="loading-overlay">
+        <div class="loader"></div>
+        <div style="font-weight: bold;">جاري الإرسال...</div>
+    </div>
+
+    <section class="hero">
+        <svg class="logo-svg" viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg">
+            <path d="M80 30 H120 C145 30 145 60 120 60 H80 V30 Z" fill="#c2996f"/>
+            <path d="M80 70 H120 C145 70 145 105 120 105 H80 V70 Z" fill="#c2996f"/>
+            <rect x="160" y="30" width="40" height="75" rx="20" fill="#c2996f"/>
+            <rect x="220" y="55" width="40" height="50" rx="20" fill="#c2996f"/>
+            <rect x="280" y="30" width="40" height="75" rx="20" fill="#c2996f"/>
+            <text x="200" y="160" text-anchor="middle" font-family="Arial" font-weight="900" font-size="48" fill="#000000">BUILD WISE</text>
+        </svg>
+        <p>تحويل التدفقات النقدية إلى أصول عقارية</p>
+    </section>
+
+    <div class="survey-container">
+        <form id="buildWiseForm">
+            <div class="card">
+                <h3>👤 معلومات العميل</h3>
+                <div class="field">
+                    <label>اسم الشركة / المنشأة <span class="required-star">*</span></label>
+                    <input type="text" name="company_name" required placeholder="أدخل اسم المنشأة">
+                </div>
+                <div class="field">
+                    <label>اسم مسؤول التواصل <span class="required-star">*</span></label>
+                    <input type="text" name="contact_person" required placeholder="الأسم الثلاثي">
+                </div>
+                <div class="field">
+                    <label>رقم الجوال <span class="required-star">*</span></label>
+                    <input type="tel" name="mobile" placeholder="05xxxxxxxx" required>
+                </div>
+                <div class="field">
+                    <label>البريد الإلكتروني</label>
+                    <input type="email" name="email" placeholder="example@mail.com">
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>💰 البيانات المالية</h3>
+                <div class="field">
+                    <label>متوسط المبيعات الشهرية عبر أجهزة نقاط البيع (POS) <span class="required-star">*</span></label>
+                    <input type="number" name="pos_monthly_sales" required placeholder="0.00">
+                </div>
+                <div class="field">
+                    <label>نسبة صافي الربح لسنة 2025 (%) <span class="required-star">*</span></label>
+                    <input type="number" step="0.01" name="net_profit_percent_2025" required placeholder="مثال: 15">
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>🏡 بيانات العقار المستهدف</h3>
+                <div class="field">
+                    <label>نوع العقار <span class="required-star">*</span></label>
+                    <select name="property_type" required>
+                        <option value="" disabled selected>اختر النوع...</option>
+                        <option value="شقة">شقة</option>
+                        <option value="مكتب">مكتب</option>
+                        <option value="وحدة فندقية">وحدة فندقية</option>
+                        <option value="أرض">أرض</option>
+                        <option value="فيلا">فيلا</option>
+                        <option value="مبنى سكني">مبنى سكني</option>
+                        <option value="مبنى مكتبي">مبنى مكتبي</option>
+                        <option value="مبنى فندقي">مبنى فندقي</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>المنطقة <span class="required-star">*</span></label>
+                    <input type="text" name="region" required placeholder="مثال: الرياض">
+                </div>
+            </div>
+
+            <button type="button" onclick="sendData()" id="btnSubmit" class="submit-btn">إرسال طلب التملك</button>
+        </form>
+
+        <div id="success-screen" class="card">
+            <div class="success-icon">✓</div>
+            <div class="success-title">تم إرسال بياناتكم بنجاح!</div>
+            <p class="success-msg">شكراً لثقتكم ببيلد وايز. سيقوم فريقنا بمراجعة البيانات المالية والعقارية والتواصل معكم قريباً.</p>
+        </div>
+    </div>
+
+    <script>
+        // الرابط الجديد الخاص بك
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxwhK9yu1chMvtSFYh6xBLBlrZzNgj6nhzQ_YFQLLNlemZi5mK0azO5hvvVLq2odWkQ/exec";
+
+        async function sendData() {
+            const btn = document.getElementById('btnSubmit');
+            const overlay = document.getElementById('loading-overlay');
+            const form = document.getElementById('buildWiseForm');
+            const successScreen = document.getElementById('success-screen');
+
+            if(!form.checkValidity()) {
+                alert("يرجى إكمال جميع الحقول المطلوبة والمميزة بنجمة حمراء.");
+                return;
+            }
+
+            btn.disabled = true;
+            overlay.style.display = 'flex';
+
+            const payload = {};
+            new FormData(form).forEach((v, k) => payload[k] = v);
+
+            try {
+                fetch(SCRIPT_URL, {
+                    method: "POST",
+                    body: JSON.stringify(payload),
+                    mode: "no-cors"
+                }).then(() => {
+                    overlay.style.display = 'none';
+                    form.style.display = 'none';
+                    successScreen.style.display = 'block';
+                    window.scrollTo(0, 0);
+                }).catch(e => {
+                    overlay.style.display = 'none';
+                    alert("حدث خطأ في الاتصال، يرجى المحاولة مرة أخرى.");
+                    btn.disabled = false;
+                });
+            } catch (err) {
+                overlay.style.display = 'none';
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>
